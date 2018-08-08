@@ -3,8 +3,8 @@ session_start();
 require_once __DIR__ . '/vendor/autoload.php'; // change path as needed
 
 $fb = new \Facebook\Facebook([
-  'app_id' => '1066597540188266',
-  'app_secret' => '0e5c2f9fd1626689fb67a5df4dead4e2',
+  'app_id' => '{your-app-id}', // TODO: EDIT HERE
+  'app_secret' => '{your-secret}', // TODO: EDIT HERE
   'default_graph_version' => 'v3.0',
   //'default_access_token' => '{access-token}', // optional
 ]);
