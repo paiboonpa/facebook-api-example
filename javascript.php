@@ -13,7 +13,7 @@
     <script>
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '{your-app-id}', // TODO: EDIT HERE
+                appId: '1066597540188266', // TODO: EDIT HERE!!
                 cookie: true,
                 xfbml: true,
                 version: 'v3.1'
@@ -23,9 +23,11 @@
             FB.AppEvents.logPageView();
 
             FB.Event.subscribe('auth.login', function (response) {
+                debugger;
                 // TODO: add event login here
             });
             FB.Event.subscribe('auth.logout', function (response) {
+                debugger;
                 // TODO: add event logout here
             });
         };
@@ -56,17 +58,22 @@
         function facebookLogin() {
             FB.login(function (response) {
                 if (response.authResponse) {
+                    FB.api("/me?fields=id,first_name,last_name,email",function(res){
+                        console.log(res)
+                    })
+                    document.getElementById('profilePicture').src = "https://graph.facebook.com/me/picture?access_token=" + response.authResponse.accessToken;
                     console.log('login success! access token is: ' + response.authResponse.accessToken);
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
             }, {
-                scope: 'public_profile,email'
+                scope: 'public_profile'
             });
         }
 
         function facebookLogout() {
             FB.logout(function (response) {
+                debugger;
                 if (response.authResponse) {
                     console.log('logout success!');
                 } else {
@@ -76,7 +83,7 @@
         }
     </script>
     
-    <fb:login-button scope="public_profile,email,user_friends" onlogin=" myLoginSuccess();">
+    <fb:login-button scope="public_profile,email" onlogin=" myLoginSuccess();">
     </fb:login-button>
     <button onclick="facebookLogin()">Facebook Login</button>
     <button onclick="facebookLogout()">Facebook Logout</button>
