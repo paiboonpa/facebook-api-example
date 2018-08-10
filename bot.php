@@ -28,7 +28,7 @@ use pimax\Messages\QuickReply;
 use pimax\Messages\QuickReplyButton;
 use pimax\Messages\SenderAction;
 
-my_log('1');
+
 // Make Bot Instance
 $bot = new FbBotApp($token);
 if (!empty($_REQUEST['local'])) {
