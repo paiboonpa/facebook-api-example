@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors',1);
-$verify_token = ""; // Verify token
-$token = ""; // Page token
+$verify_token = "{your-any-random-word}"; // Verify token
+$token = "{your-page-access-token"; // Page token
 function my_log($text){
   $myfile = file_put_contents('logs.txt', $text.PHP_EOL , FILE_APPEND | LOCK_EX);
 }
@@ -28,7 +28,7 @@ use pimax\Messages\QuickReply;
 use pimax\Messages\QuickReplyButton;
 use pimax\Messages\SenderAction;
 
-
+// my_log('1');
 // Make Bot Instance
 $bot = new FbBotApp($token);
 if (!empty($_REQUEST['local'])) {
@@ -341,46 +341,8 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                         ]
                     ]);
                     break;
-                // When bot receive "set target audience"
-                case 'show target audience':
-                    $response = $bot->getTargetAudience();
-                    break;
-                // When bot receive "set target audience"
-                case 'set target audience':
-                    $bot->setTargetAudience("all");
-                    //$bot->setTargetAudience("none");
-                    //$bot->setTargetAudience("custom", "whitelist", ["US", "CA"]);
-                    //$bot->setTargetAudience("custom", "blacklist", ["US", "CA"]);
-                    break;
-                // When bot receive "delete target audience"
-                case 'delete target audience':
-                    $bot->deleteTargetAudience();
-                    break;
-                // When bot receive "show domain whitelist"
-                case 'show domain whitelist':
-                    $response = $bot->getDomainWhitelist();
-                    $text = "";
-                    if(isset($response['data'][0]['whitelisted_domains']) AND is_array($response['data'][0]['whitelisted_domains'])){
-                        foreach ($response['data'][0]['whitelisted_domains'] as $domains)
-                        {
-                            $text .= $domains."\n";
-                        }
-                    } else {
-                        $text = "No domains in whitelist!";
-                    }
-                    $bot->send(new Message($message['sender']['id'], $text));
-                    break;
-                // When bot receive "set domain whitelist"
-                case 'set domain whitelist':
-                    //$bot->setDomainWhitelist("https://petersfancyapparel.com");
-                    $bot->setDomainWhitelist([
-                        "https://petersfancyapparel-1.com",
-                        "https://petersfancyapparel-2.com",
-                    ]);
-                    break;
-                // When bot receive "delete domain whitelist"
-                case 'delete domain whitelist':
-                    $bot->deleteDomainWhitelist();
+                case 'webview':
+                    $bot->setHomeUrl('https://codekit.co');
                     break;
                 // Other message received
                 default:
